@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+    <style>
+        .ig {
+            border: 2px solid red;
+        }
+
+        .info {
+            color: blue;
+        }
+
+        .danger {
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <img alt="" v-bind:src="imageUrl" v-bind:class="cls">
+
+    <h1 v-bind:class="{info:v1, danger:v2}">你好呀</h1>
+    <h1 v-bind:class="clsDict">我是猪</h1>
+
+    <h2 v-bind:class="[1===1 ? 'info' : 'danger']">哈哈哈</h2>
+
+    <input type="button" v-on:click="clickMe" value="点击">
+</div>
+
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            imageUrl: 'D.Va.jpg',
+            cls: "ig",
+            v1: true,
+            v2: false,
+            clsDict:{
+                info: false,
+                danger: true
+            },
+        },
+        methods:{
+            clickMe: function (){
+                this.v1 = false
+                this.v2 = true
+            }
+        }
+    })
+</script>
+
+</html>

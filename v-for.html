@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(item, idx) in dataList">{{idx+1}} - {{item}}</li>
+    </ul>
+    <ul>
+        <li v-for="(value, key) in dataDict">{{key}} - {{value}}</li>
+    </ul>
+    <ul>
+        <li v-for="(item, idx) in dicInList">
+            <span v-for="(v, k) in item">{{k}}：{{v}} </span>
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            dataList: ["卢小喷", "卢大喷", "卢小添"],
+            dataDict: {
+                age: 23,
+                sex: "男",
+                city: "北京"
+            },
+            dicInList: [
+                {id: 5001, content: 'none'},
+                {id: 5002, content: 'hhhh'},
+                {id: 5003, content: "吃大便"},
+            ]
+        }
+    })
+</script>
+</html>

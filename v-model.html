@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        用户名：<input type="text" v-model="info.user">
+    </div>
+    <div>
+        密码：<input type="text" v-model="info.pwd">
+    </div>
+    <div>
+        性别：
+        <input type="radio" v-model="info.sex" value="1">男
+        <input type="radio" v-model="info.sex" value="2">女
+    </div>
+    <div>
+        爱好：
+        <input type="checkbox" v-model="info.hobby" value="11">吃大便
+        <input type="checkbox" v-model="info.hobby" value="12">吃小便
+        <input type="checkbox" v-model="info.hobby" value="13">都不吃
+    </div>
+    <div>
+        城市：
+        <select v-model="info.city">
+            <option value="sh">上海</option>
+            <option value="bj">北京</option>
+            <option value="hz">湖州</option>
+        </select>
+    </div>
+    <div>
+        其他：<textarea v-model="info.more"></textarea>
+    </div>
+
+    <input type="button" value="注 册" v-on:click="clickMe">
+</div>
+
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            info: {
+                user: '',
+                pwd: '',
+                sex: '1',
+                hobby: ['13'],
+                city: 'hz',
+                more: '...',
+            }
+        },
+        methods: {
+            clickMe: function () {
+                console.log(this.info)
+            }
+        }
+    })
+</script>
+</html>
