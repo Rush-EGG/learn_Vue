@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>========当前页面=========</h1>
+    {{name}}
+
+    <h1>引入子组件</h1>
+    <Demo></Demo>
+    <Demo></Demo>
+</div>
+
+</body>
+<script>
+    <!--    创建全局组件，是不需要在app中挂载的-->
+    Vue.component('Demo', {
+        data: function () {
+            return {
+                msg: "哈哈哈哈哈哈哈"
+            }
+        },
+        template: `
+            <div>
+                <h1>{{msg}}</h1>
+                <input type="text" v-model="msg"/>
+                <input type="button" @click="showMsg" value="点我呀">
+            </div>
+        `,
+        methods: {
+            showMsg: function () {
+                alert(this.msg)
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: "卢小喷"
+        },
+        methods: {}
+    })
+</script>
+</html>

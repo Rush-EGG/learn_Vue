@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="axios.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .menu {
+            height: 48px;
+            background-color: #499ef3;
+            line-height: 18px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        .container-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .course-list .item {
+            width: 248px;
+            padding: 10px;
+            border: 1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="menu">
+        <div class="container">
+            <router-link to="/">luffy</router-link>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/course">课程</router-link>
+            <router-link to="/news">资讯</router-link>
+        </div>
+    </div>
+    <div class="container">
+        <router-view></router-view>
+    </div>
+</div>
+
+</body>
+<script>
+    const Home = {
+        data: function () {
+            return {
+                title: "欢迎进入Luffy"
+            }
+        },
+        template: `<h2>{{title}}</h2>`
+    }
+    const Course = {
+        data: function () {
+            return {
+                courseList: []
+            }
+        },
+        created: function () {
+            /*
+            * 组件创建完成之后自动触发
+            * - 可以去操作组件对象，例如：this.courseList = [11, 22, 33]
+            * - 不可以操作DOM，例如：document.getElementById（未创建）
+            * */
+            axios({
+                method: 'get',
+                url: 'https://api.luffycity.com/api/v1/course/actual/?limit=5&offset=8',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                this.courseList = res.data.data.result
+            })
+        },
+        mounted: function () {
+            // DOM对象已经在页面上生成，此时可以通过Id获取
+        },
+        template: `
+            <div class="course-list">
+                <div class="item" v-for="item in courseList">
+                    <img :src="item.cover" alt="">
+                    <a>{{item.name}}</a>
+                </div>
+            </div>
+        `
+    }
+    const News = {
+        data: function () {
+            return {
+                dataList: []
+            }
+        },
+        created: function () {
+            /*
+            * 组件创建完成之后自动触发
+            * - 可以去操作组件对象，例如：this.courseList = [11, 22, 33]
+            * - 不可以操作DOM，例如：document.getElementById（未创建）
+            * */
+            axios({
+                method: 'get',
+                url: 'https://api.luffycity.com/api/v1/course/actual/?limit=5&offset=8',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                this.dataList = res.data.data.result
+            })
+        },
+        template: `<ul><li v-for="item in dataList">{{item.name}}</li></ul>`
+    }
+
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                component: Home
+            },
+            {
+                path: '/home',
+                component: Home
+            },
+            {
+                path: '/course',
+                component: Course
+            },
+            {
+                path: '/news',
+                component: News
+            },
+        ],
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: router
+    })
+</script>
+</html>

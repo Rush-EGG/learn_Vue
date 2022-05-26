@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .container{
+            width: 980px;
+            margin: 0 auto;
+        }
+        .menu{
+            height: 48px;
+            background-color: #499ef3;
+            line-height: 18px;
+        }
+        .menu a{
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+    </style>
+    <script src="vue.min.js"></script>
+    <script src="vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="menu">
+        <div class="container">
+            <router-link to="/">Logo</router-link>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/course">课程</router-link>
+            <router-link to="/news">资讯</router-link>
+        </div>
+    </div>
+    <div class="container">
+        <router-view></router-view>
+    </div>
+</div>
+
+</body>
+<script>
+    const Home = {
+        template: `
+            <div>首页内容...</div>
+        `
+    }
+    const Course = {
+        template: `
+            <div>课程内容...</div>
+        `
+    }
+    const News = {
+        template: `
+            <div>咨询内容...</div>
+        `
+    }
+
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                component: Home
+            },
+            {
+                path: '/home',
+                component: Home
+            },
+            {
+                path: '/course',
+                component: Course
+            },
+            {
+                path: '/news',
+                component: News
+            },
+        ],
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: "卢小喷"
+        },
+        methods:{},
+        router: router
+    })
+</script>
+</html>

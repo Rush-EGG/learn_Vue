@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>======当前页面=======</h1>
+    {{name}}
+    <h1>======引入子组件======</h1>
+    <Demo></Demo>
+    <Bb></Bb>
+    </hr>
+    <Bb></Bb>
+</div>
+
+</body>
+<script>
+    //创建子组件
+    const Demo = {
+        data: function () {
+            return {
+                msg: "哈哈哈哈哈哈哈"
+            }
+        },
+        template: `
+            <div>
+                <h1>{{msg}}</h1>
+                <input type="text" v-model="msg"/>
+                <input type="button" @click="showMsg" value="点我呀">
+            </div>
+        `,
+        methods: {
+            showMsg: function () {
+                alert(this.msg)
+            }
+        }
+    }
+
+    //创建子组件
+    const Bili = {
+        // 组件中的data是一个方法，会返回一个值
+        data: function () {
+            return{
+                dataList: [
+                    {'id': 1, 'title': "江南皮革厂倒闭了"},
+                    {'id': 2, 'title': "王八蛋黄鹤老板和小姨子跑了"},
+                ]
+            }
+        },
+        template: `
+            <div>
+                <h1>数据列表</h1>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in dataList">
+                        <td>{{item.id}}</td>
+                        <td>{{item.title}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        `
+    }
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: "卢小喷"
+        },
+        //挂载组件
+        components: {
+            Demo,
+            //为组件Bili取别名Bb
+            Bb: Bili
+        },
+        methods: {}
+    })
+</script>
+</html>
